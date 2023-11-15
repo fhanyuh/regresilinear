@@ -10,7 +10,29 @@ const Inputregresi = () => {
   let listItemsY2 = []
   let listItemsXY = []
 
+  function ResetButton() {
+    for (let i = 0; i < jumlahTabel; i++) {
+      document.getElementById("X" + i).value = 0
+      document.getElementById("Y" + i).value = 0
+      document.getElementById("X2" + i).value = 0
+      document.getElementById("Y2" + i).value = 0
+      document.getElementById("XY" + i).value = 0
+      document.getElementById("SumX").value = 0
+      document.getElementById("SumY").value = 0
+      document.getElementById("SumX2").value = 0
+      document.getElementById("SumY2").value = 0
+      document.getElementById("SumXY").value = 0
+    }
+  }
+
   function handleButtonClick() {
+    for (let i = 0; i < jumlahTabel; i++) {
+      document.getElementById("SumX").value = 0
+      document.getElementById("SumY").value = 0
+      document.getElementById("SumX2").value = 0
+      document.getElementById("SumY2").value = 0
+      document.getElementById("SumXY").value = 0
+    }
     setJumlahTabel(jTabel.value)
     Store.state.totalRow = jTabel.value
   }
@@ -20,7 +42,7 @@ const Inputregresi = () => {
       listItemsX.push(
         <input
           key={"X" + i}
-          defaultValue={i + 1}
+          defaultValue={0}
           type="number"
           id={"X" + i}
           name={"X" + i}
@@ -46,7 +68,7 @@ const Inputregresi = () => {
       listItemsY.push(
         <input
           key={"Y" + i}
-          defaultValue={i + 1}
+          defaultValue={0}
           type="number"
           id={"Y" + i}
           name={"Y" + i}
@@ -73,7 +95,7 @@ const Inputregresi = () => {
         <input
           readOnly
           key={"X2" + i}
-          defaultValue={i + 1}
+          defaultValue={0}
           type="number"
           id={"X2" + i}
           name={"X2" + i}
@@ -100,7 +122,7 @@ const Inputregresi = () => {
         <input
           readOnly
           key={"Y2" + i}
-          defaultValue={i + 1}
+          defaultValue={0}
           type="number"
           id={"Y2" + i}
           name={"Y2" + i}
@@ -127,7 +149,7 @@ const Inputregresi = () => {
         <input
           readOnly
           key={"XY" + i}
-          defaultValue={i + 1}
+          defaultValue={0}
           type="number"
           id={"XY" + i}
           name={"XY" + i}
@@ -157,19 +179,10 @@ const Inputregresi = () => {
       return x
     }
   }
-  function ResetButton() {
-    for (let i = 0; i < jumlahTabel; i++) {
-      document.getElementById("X" + i).value = 0
-      document.getElementById("Y" + i).value = 0
-      document.getElementById("X2" + i).value = 0
-      document.getElementById("Y2" + i).value = 0
-      document.getElementById("XY" + i).value = 0
-      document.getElementById("SumX").value = 0
-      document.getElementById("SumY").value = 0
-      document.getElementById("SumX2").value = 0
-      document.getElementById("SumY2").value = 0
-      document.getElementById("SumXY").value = 0
-    }
+
+  function DoubleCalculation() {
+    CalculationButton()
+    CalculationButton()
   }
   function CalculationButton() {
     Store.state.cX = []
@@ -191,12 +204,12 @@ const Inputregresi = () => {
       Store.state.sumY2 += parseFloat(document.getElementById("Y2" + i).value)
       Store.state.sumXY += parseFloat(document.getElementById("XY" + i).value)
     }
+    Store.state.sumX = Pembulatan(Store.state.sumX)
+    Store.state.sumY = Pembulatan(Store.state.sumY)
+    Store.state.sumX2 = Pembulatan(Store.state.sumX2)
+    Store.state.sumY2 = Pembulatan(Store.state.sumY2)
+    Store.state.sumXY = Pembulatan(Store.state.sumXY)
     for (let i = 0; i < jumlahTabel; i++) {
-      Store.state.sumX = Pembulatan(Store.state.sumX)
-      Store.state.sumY = Pembulatan(Store.state.sumY)
-      Store.state.sumX2 = Pembulatan(Store.state.sumX2)
-      Store.state.sumY2 = Pembulatan(Store.state.sumY2)
-      Store.state.sumXY = Pembulatan(Store.state.sumXY)
       Store.state.cX[i] = Pembulatan(Store.state.valuesX[i])
       Store.state.cY[i] = Pembulatan(Store.state.valuesY[i])
       Store.state.cX2[i] = Pembulatan(
@@ -256,7 +269,7 @@ const Inputregresi = () => {
           </div>
         </div>
         <button onClick={ResetButton}>Reset</button>
-        <button onClick={CalculationButton}>Calculate</button>
+        <button onClick={DoubleCalculation}>Calculate</button>
       </div>
     </>
   )
