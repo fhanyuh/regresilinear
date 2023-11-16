@@ -31,6 +31,8 @@ const Store = {
 		deltaY2_4: 0,
 		deltaY2_5: 0,
 		deltaY2_6: 0,
+		deltaB_1: 0,
+		deltaB_2: 0,
 		deltaB: 0,
 		tingkatKetelitian: 0,
 		pembulatan: true,
