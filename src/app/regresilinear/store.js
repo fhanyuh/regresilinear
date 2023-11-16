@@ -1,4 +1,3 @@
-import { useState } from "react"
 
 const Store = {
     state: {
@@ -38,161 +37,128 @@ const Store = {
 		belakangDesimal: 10000,
     },
     action: {
-        initValues(){
-            Store.state.values = []
-            for (let i = 0; i < Store.state.totalRow; i++) {
-                console.log(Store.state.values);
-                Store.state.values = [
-                    ...Store.state.values,
-                    {
-                        no: i + 1,
-                        x: i + 1,
-                        y: 0,
-                        x2: 0,
-                        y2: 0,
-                        xy: 0,
-                    },
-                ]
-            }
-        },
         calculationHandler(state) {
-			state.belakangDesimal = store.state.belakangDesimal
-			state.values.forEach((eachValue) => {
-				eachValue.x2 = Math.round((eachValue.x * eachValue.x) * state.belakangDesimal ) / state.belakangDesimal
-				eachValue.y2 = Math.round((eachValue.y * eachValue.y) * state.belakangDesimal ) / state.belakangDesimal
-				eachValue.xy = Math.round((eachValue.x * eachValue.y) * state.belakangDesimal ) / state.belakangDesimal
-				state.sum_x += eachValue.x
-				state.sum_y += eachValue.y
-				state.sum_x2 += eachValue.x2
-				state.sum_y2 += eachValue.y2
-				state.sum_xy += eachValue.xy
-			})
-			state.sum_x = Math.round((state.sum_x) * state.belakangDesimal ) / state.belakangDesimal
-			state.sum_y = Math.round((state.sum_y) * state.belakangDesimal ) / state.belakangDesimal
-			state.sum_x2 = Math.round((state.sum_x2) * state.belakangDesimal ) / state.belakangDesimal
-			state.sum_y2 = Math.round((state.sum_y2) * state.belakangDesimal ) / state.belakangDesimal
-			state.sum_xy = Math.round((state.sum_xy) * state.belakangDesimal ) / state.belakangDesimal
 			//Eksperimen
-			state.b_1 = Math.round((state.values.length * state.sum_xy)*state.belakangDesimal)/state.belakangDesimal,
-			state.b_2 = Math.round((state.sum_x * state.sum_y)* state.belakangDesimal ) / state.belakangDesimal,
-			state.b_3 = Math.round((state.b_1 - state.b_2) * state.belakangDesimal)/state.belakangDesimal
-			state.penyebut_1 = Math.round((state.values.length * state.sum_x2) * state.belakangDesimal) /state.belakangDesimal,
-			state.penyebut_2 = Math.round((state.sum_x * state.sum_x) * state.belakangDesimal)/state.belakangDesimal
-			state.penyebut_3 = Math.round((state.penyebut_1 - state.penyebut_2) * state.belakangDesimal)/state.belakangDesimal
-			state.deltaY2_1 = Math.round((state.sum_x2 * state.sum_y * state.sum_y) * state.belakangDesimal ) / state.belakangDesimal,
-			state.deltaY2_2 = Math.round((2 * state.sum_x * state.sum_y * state.sum_xy)*state.belakangDesimal)/state.belakangDesimal,
-			state.deltaY2_3 = Math.round((state.values.length * state.sum_xy * state.sum_xy)*state.belakangDesimal)/state.belakangDesimal,
-			state.deltaY2_4 = Math.round((state.deltaY2_1 - state.deltaY2_2 + state.deltaY2_3)*state.belakangDesimal)/state.belakangDesimal,
-			state.deltaY2_5 = Math.round((state.deltaY2_4 / state.penyebut_3)*state.belakangDesimal)/state.belakangDesimal,
-			state.deltaY2_6 = Math.round((state.sum_y2 - state.deltaY2_5)*state.belakangDesimal)/state.belakangDesimal,
-			state.deltaB_1 = Math.round((state.values.length / state.penyebut_3)*state.belakangDesimal)/state.belakangDesimal,
-			state.deltaB_2 = Math.round((Math.sqrt(state.deltaB_1))*state.belakangDesimal)/state.belakangDesimal
-			if (state.pembulatan == true) {
-				state.b =
+			Store.state.b_1 = Math.round((Store.state.totalRow * Store.state.sumXY)*Store.state.belakangDesimal)/Store.state.belakangDesimal,
+			Store.state.b_2 = Math.round((Store.state.sumX * Store.state.sumY)* Store.state.belakangDesimal ) / Store.state.belakangDesimal,
+			Store.state.b_3 = Math.round((Store.state.b_1 - Store.state.b_2) * Store.state.belakangDesimal)/Store.state.belakangDesimal
+			Store.state.penyebut_1 = Math.round((Store.state.totalRow * Store.state.sumX2) * Store.state.belakangDesimal) /Store.state.belakangDesimal,
+			Store.state.penyebut_2 = Math.round((Store.state.sumX * Store.state.sumX) * Store.state.belakangDesimal)/Store.state.belakangDesimal
+			Store.state.penyebut_3 = Math.round((Store.state.penyebut_1 - Store.state.penyebut_2) * Store.state.belakangDesimal)/Store.state.belakangDesimal
+			Store.state.deltaY2_1 = Math.round((Store.state.sumX2 * Store.state.sumY * Store.state.sumY) * Store.state.belakangDesimal ) / Store.state.belakangDesimal,
+			Store.state.deltaY2_2 = Math.round((2 * Store.state.sumX * Store.state.sumY * Store.state.sumXY)*Store.state.belakangDesimal)/Store.state.belakangDesimal,
+			Store.state.deltaY2_3 = Math.round((Store.state.totalRow * Store.state.sumXY * Store.state.sumXY)*Store.state.belakangDesimal)/Store.state.belakangDesimal,
+			Store.state.deltaY2_4 = Math.round((Store.state.deltaY2_1 - Store.state.deltaY2_2 + Store.state.deltaY2_3)*Store.state.belakangDesimal)/Store.state.belakangDesimal,
+			Store.state.deltaY2_5 = Math.round((Store.state.deltaY2_4 / Store.state.penyebut_3)*Store.state.belakangDesimal)/Store.state.belakangDesimal,
+			Store.state.deltaY2_6 = Math.round((Store.state.sumY2 - Store.state.deltaY2_5)*Store.state.belakangDesimal)/Store.state.belakangDesimal,
+			Store.state.deltaB_1 = Math.round((Store.state.totalRow / Store.state.penyebut_3)*Store.state.belakangDesimal)/Store.state.belakangDesimal,
+			Store.state.deltaB_2 = Math.round((Math.sqrt(Store.state.deltaB_1))*Store.state.belakangDesimal)/Store.state.belakangDesimal
+			if (Store.state.pembulatan == true) {
+				Store.state.b =
 					Math.round(
-						((state.values.length * state.sum_xy -
-							state.sum_x * state.sum_y) /
-							(state.values.length * state.sum_x2 -
-								state.sum_x * state.sum_x)) *
-							state.belakangDesimal
-					) / state.belakangDesimal
-				state.deltaY =
+						((Store.state.totalRow * Store.state.sumXY -
+							Store.state.sumX * Store.state.sumY) /
+							(Store.state.totalRow * Store.state.sumX2 -
+								Store.state.sumX * Store.state.sumX)) *
+							Store.state.belakangDesimal
+					) / Store.state.belakangDesimal
+				Store.state.deltaY =
 					Math.round(
 						Math.sqrt(
 							Math.round(
-								(1 / (state.values.length - 2)) *
-									(state.sum_y2 -
-										(state.sum_x2 *
-											(state.sum_y * state.sum_y) -
+								(1 / (Store.state.totalRow - 2)) *
+									(Store.state.sumY2 -
+										(Store.state.sumX2 *
+											(Store.state.sumY * Store.state.sumY) -
 											2 *
-												state.sum_x *
-												state.sum_y *
-												state.sum_xy +
-											state.values.length *
-												state.sum_xy *
-												state.sum_xy) /
-											(state.values.length *
-												state.sum_x2 -
-												state.sum_x * state.sum_x)) *
-									state.belakangDesimal
-							) / state.belakangDesimal
-						) * state.belakangDesimal
-					) / state.belakangDesimal
-				state.deltaY2 =
+												Store.state.sumX *
+												Store.state.sumY *
+												Store.state.sumXY +
+											Store.state.totalRow *
+												Store.state.sumXY *
+												Store.state.sumXY) /
+											(Store.state.totalRow *
+												Store.state.sumX2 -
+												Store.state.sumX * Store.state.sumX)) *
+									Store.state.belakangDesimal
+							) / Store.state.belakangDesimal
+						) * Store.state.belakangDesimal
+					) / Store.state.belakangDesimal
+				Store.state.deltaY2 =
 					Math.round(
-						(1 / (state.values.length - 2)) *
-							(state.sum_y2 -
-								(state.sum_x2 * (state.sum_y * state.sum_y) -
+						(1 / (Store.state.totalRow - 2)) *
+							(Store.state.sumY2 -
+								(Store.state.sumX2 * (Store.state.sumY * Store.state.sumY) -
 									2 *
-										state.sum_x *
-										state.sum_y *
-										state.sum_xy +
-									state.values.length *
-										state.sum_xy *
-										state.sum_xy) /
-									(state.values.length * state.sum_x2 -
-										state.sum_x * state.sum_x)) *
-							state.belakangDesimal
-					) / state.belakangDesimal
-				state.deltaB =
+										Store.state.sumX *
+										Store.state.sumY *
+										Store.state.sumXY +
+									Store.state.totalRow *
+										Store.state.sumXY *
+										Store.state.sumXY) /
+									(Store.state.totalRow * Store.state.sumX2 -
+										Store.state.sumX * Store.state.sumX)) *
+							Store.state.belakangDesimal
+					) / Store.state.belakangDesimal
+				Store.state.deltaB =
 					Math.round(
-						((state.deltaY * Math.sqrt(state.values.length)) /
+						((Store.state.deltaY * Math.sqrt(Store.state.totalRow)) /
 							Math.sqrt(
-								state.values.length * state.sum_x2 -
-									state.sum_x * state.sum_x
+								Store.state.totalRow * Store.state.sumX2 -
+									Store.state.sumX * Store.state.sumX
 							)) *
-							state.belakangDesimal
-					) / state.belakangDesimal
-				state.tingkatKetelitian =
+							Store.state.belakangDesimal
+					) / Store.state.belakangDesimal
+				Store.state.tingkatKetelitian =
 					Math.round(
-						(1 - state.deltaB / state.b) *
+						(1 - Store.state.deltaB / Store.state.b) *
 							100 *
-							state.belakangDesimal
-					) / state.belakangDesimal
+							Store.state.belakangDesimal
+					) / Store.state.belakangDesimal
 			} else {
-				state.b =
-					(state.values.length * state.sum_xy -
-						state.sum_x * state.sum_y) /
-					(state.values.length * state.sum_x2 -
-						state.sum_x * state.sum_x)
-				state.deltaY = Math.sqrt(
-					(1 / (state.values.length - 2)) *
-						(state.sum_y2 -
-							(state.sum_x2 * (state.sum_y * state.sum_y) -
-								2 * state.sum_x * state.sum_y * state.sum_xy +
-								state.values.length *
-									state.sum_xy *
-									state.sum_xy) /
-								(state.values.length * state.sum_x2 -
-									state.sum_x * state.sum_x))
+				Store.state.b =
+					(Store.state.totalRow * Store.state.sumXY -
+						Store.state.sumX * Store.state.sumY) /
+					(Store.state.totalRow * Store.state.sumX2 -
+						Store.state.sumX * Store.state.sumX)
+				Store.state.deltaY = Math.sqrt(
+					(1 / (Store.state.totalRow - 2)) *
+						(Store.state.sumY2 -
+							(Store.state.sumX2 * (Store.state.sumY * Store.state.sumY) -
+								2 * Store.state.sumX * Store.state.sumY * Store.state.sumXY +
+								Store.state.totalRow *
+									Store.state.sumXY *
+									Store.state.sumXY) /
+								(Store.state.totalRow * Store.state.sumX2 -
+									Store.state.sumX * Store.state.sumX))
 				)
-				state.deltaY2 =
-					(1 / (state.values.length - 2)) *
-					(state.sum_y2 -
-						(state.sum_x2 * (state.sum_y * state.sum_y) -
-							2 * state.sum_x * state.sum_y * state.sum_xy +
-							state.values.length * state.sum_xy * state.sum_xy) /
-							(state.values.length * state.sum_x2 -
-								state.sum_x * state.sum_x))
+				Store.state.deltaY2 =
+					(1 / (Store.state.totalRow - 2)) *
+					(Store.state.sumY2 -
+						(Store.state.sumX2 * (Store.state.sumY * Store.state.sumY) -
+							2 * Store.state.sumX * Store.state.sumY * Store.state.sumXY +
+							Store.state.totalRow * Store.state.sumXY * Store.state.sumXY) /
+							(Store.state.totalRow * Store.state.sumX2 -
+								Store.state.sumX * Store.state.sumX))
 
-				state.deltaB =
-					(state.deltaY * Math.sqrt(state.values.length)) /
+				Store.state.deltaB =
+					(Store.state.deltaY * Math.sqrt(Store.state.totalRow)) /
 					Math.sqrt(
-						state.values.length * state.sum_x2 -
-							state.sum_x * state.sum_x
+						Store.state.totalRow * Store.state.sumX2 -
+							Store.state.sumX * Store.state.sumX
 					)
-				state.tingkatKetelitian = (1 - state.deltaB / state.b) * 100
+				Store.state.tingkatKetelitian = (1 - Store.state.deltaB / Store.state.b) * 100
 			}
 
-			state.clicked = true
+			Store.state.clicked = true
 			console.log(state)
 		},
         getters: {
             totalRow: (state) => {
-                return state.totalRow
+                return Store.state.totalRow
             },
             values: (state) => {
-                return state.values
+                return Store.state.values
             },
         },
     } 

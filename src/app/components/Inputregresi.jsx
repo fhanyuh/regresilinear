@@ -1,14 +1,26 @@
 "use client"
 import { useState } from "react"
 import Store from "../regresilinear/store"
+import Equation from "./equation"
 
 const Inputregresi = () => {
   let [jumlahTabel, setJumlahTabel] = useState(Store.state.totalRow)
+  let [render, setRender] = useState(false)
   let listItemsX = []
   let listItemsY = []
   let listItemsX2 = []
   let listItemsY2 = []
   let listItemsXY = []
+  var delayInMilliseconds = 1000
+
+  setTimeout(() => {
+    setRender(false)
+  }, delayInMilliseconds)
+
+  function reRender() {
+    setRender(true)
+    setTimeout()
+  }
 
   function ResetButton() {
     for (let i = 0; i < jumlahTabel; i++) {
@@ -183,6 +195,8 @@ const Inputregresi = () => {
   function DoubleCalculation() {
     CalculationButton()
     CalculationButton()
+    Store.action.calculationHandler()
+    reRender()
   }
   function CalculationButton() {
     Store.state.cX = []
@@ -271,6 +285,7 @@ const Inputregresi = () => {
         <button onClick={ResetButton}>Reset</button>
         <button onClick={DoubleCalculation}>Calculate</button>
       </div>
+      <div>{render ? "Loading..." : <Equation />}</div>
     </>
   )
 }
