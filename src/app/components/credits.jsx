@@ -3,7 +3,7 @@ const Credits = () => {
     <div className="py-4 flex text-xs gap-4 flex-col text-justify items-center justify-between">
       <p>
         Linear Regression Calculator Created by Rafhan Mazaya Fathurrahman, This
-        tool was developed because i'm gabut and little bit jengkel because of
+        tool was developed because im gabut and little bit jengkel because of
         lab report so i want to help students at Telkom University with their
         physics lab assignments on linear regression. Special thanks to the
         Physics Laboratory for their guidance and Muhammad Satrio Wicaksono for
