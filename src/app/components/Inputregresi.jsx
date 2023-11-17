@@ -2,33 +2,22 @@
 import { useState } from "react"
 import Store from "../regresilinear/store"
 import Equation from "./equation"
+import "katex/dist/katex.min.css"
+import { InlineMath, BlockMath } from "react-katex"
 
 const Inputregresi = () => {
-  let [jumlahTabel, setJumlahTabel] = useState(Store.state.totalRow)
-  let [render, setRender] = useState(false)
+  let [jumlahTabel, setJumlahTabel] = useState(4)
+  let [render, setRender] = useState(true)
+
   let listItemsX = []
   let listItemsY = []
   let listItemsX2 = []
   let listItemsY2 = []
   let listItemsXY = []
-  var delayInMilliseconds = 1000
-
-  setTimeout(() => {
-    setRender(false)
-  }, delayInMilliseconds)
-
-  function reRender() {
-    setRender(true)
-    setTimeout()
-  }
 
   function ResetButton() {
+    setRender(true)
     for (let i = 0; i < jumlahTabel; i++) {
-      document.getElementById("X" + i).value = 0
-      document.getElementById("Y" + i).value = 0
-      document.getElementById("X2" + i).value = 0
-      document.getElementById("Y2" + i).value = 0
-      document.getElementById("XY" + i).value = 0
       document.getElementById("SumX").value = 0
       document.getElementById("SumY").value = 0
       document.getElementById("SumX2").value = 0
@@ -37,23 +26,13 @@ const Inputregresi = () => {
     }
   }
 
-  function handleButtonClick() {
-    for (let i = 0; i < jumlahTabel; i++) {
-      document.getElementById("SumX").value = 0
-      document.getElementById("SumY").value = 0
-      document.getElementById("SumX2").value = 0
-      document.getElementById("SumY2").value = 0
-      document.getElementById("SumXY").value = 0
-    }
-    setJumlahTabel(jTabel.value)
-    Store.state.totalRow = jTabel.value
-  }
   const TabelX = () => {
     listItemsX = []
     for (let i = 0; i < jumlahTabel; i++) {
       listItemsX.push(
         <input
           key={"X" + i}
+          className="input input-bordered input-xs"
           defaultValue={0}
           type="number"
           id={"X" + i}
@@ -63,12 +42,13 @@ const Inputregresi = () => {
     }
     listItemsX.push(
       <input
-        readOnly
+        disabled
+        className="input input-bordered input-xs my-2"
         key={"SumX"}
-        defaultValue={0}
         type="number"
         id={"SumX"}
         name={"SumX"}
+        placeholder="Sigma X"
       />,
     )
     return listItemsX
@@ -80,6 +60,7 @@ const Inputregresi = () => {
       listItemsY.push(
         <input
           key={"Y" + i}
+          className="input input-bordered input-xs"
           defaultValue={0}
           type="number"
           id={"Y" + i}
@@ -89,12 +70,13 @@ const Inputregresi = () => {
     }
     listItemsY.push(
       <input
-        readOnly
+        disabled
+        className="input input-bordered input-xs my-2"
         key={"SumY"}
-        defaultValue={0}
         type="number"
         id={"SumY"}
         name={"SumY"}
+        placeholder="Sigma Y"
       />,
     )
     return listItemsY
@@ -105,7 +87,8 @@ const Inputregresi = () => {
     for (let i = 0; i < jumlahTabel; i++) {
       listItemsX2.push(
         <input
-          readOnly
+          disabled
+          className="input input-bordered input-xs"
           key={"X2" + i}
           defaultValue={0}
           type="number"
@@ -116,12 +99,13 @@ const Inputregresi = () => {
     }
     listItemsX2.push(
       <input
-        readOnly
+        disabled
+        className="input input-bordered input-xs my-2"
         key={"SumX2"}
-        defaultValue={0}
         type="number"
         id={"SumX2"}
         name={"SumX2"}
+        placeholder="Sigma X2"
       />,
     )
     return listItemsX2
@@ -132,7 +116,8 @@ const Inputregresi = () => {
     for (let i = 0; i < jumlahTabel; i++) {
       listItemsY2.push(
         <input
-          readOnly
+          disabled
+          className="input input-bordered input-xs"
           key={"Y2" + i}
           defaultValue={0}
           type="number"
@@ -143,12 +128,13 @@ const Inputregresi = () => {
     }
     listItemsY2.push(
       <input
-        readOnly
+        disabled
         key={"SumY2"}
-        defaultValue={0}
+        className="input input-bordered input-xs my-2"
         type="number"
         id={"SumY2"}
         name={"SumY2"}
+        placeholder="Sigma Y2"
       />,
     )
     return listItemsY2
@@ -159,7 +145,8 @@ const Inputregresi = () => {
     for (let i = 0; i < jumlahTabel; i++) {
       listItemsXY.push(
         <input
-          readOnly
+          disabled
+          className="input input-bordered input-xs"
           key={"XY" + i}
           defaultValue={0}
           type="number"
@@ -170,9 +157,10 @@ const Inputregresi = () => {
     }
     listItemsXY.push(
       <input
-        readOnly
+        className="input input-bordered input-xs my-2"
+        disabled
+        placeholder="Sigma XY"
         key={"SumXY"}
-        defaultValue={0}
         type="number"
         id={"SumXY"}
         name={"SumXY"}
@@ -196,9 +184,10 @@ const Inputregresi = () => {
     CalculationButton()
     CalculationButton()
     Store.action.calculationHandler()
-    reRender()
   }
   function CalculationButton() {
+    setRender(false)
+    Store.state.totalRow = jumlahTabel
     Store.state.cX = []
     Store.state.cY = []
     Store.state.cX2 = []
@@ -252,38 +241,89 @@ const Inputregresi = () => {
 
   return (
     <>
-      <h1>Tabel</h1>
-      <h3>Jumlah Tabel</h3>
-      <input
-        defaultValue={4}
-        type="number"
-        min={2}
-        max={10}
-        id="jTabel"
-        name="jTabel"
-      />
-      <button onClick={handleButtonClick} type="submit">
-        Atur Tabel
-      </button>
+      <div className="flex justify-center">
+        <h1 className="font-bold mb-4">Regresi Linear Calculation</h1>
+      </div>
       <div>
-        <div className="grid grid-cols-5 gap-2">
-          <div className="grid grid-cols-1 gap-2">X{TabelX()}</div>
-          <div className="grid grid-cols-1 gap-2">Y{TabelY()}</div>
-          <div className="grid grid-cols-1 gap-2">
-            X2
+        <div className="flex gap-1 justify-between items-center">
+          <div className="grid grid-cols-1 gap-1">
+            <div className="flex w-full justify-center">X</div>
+            {TabelX()}
+          </div>
+          <div className="grid grid-cols-1 gap-1">
+            <div className="flex w-full justify-center">Y</div>
+            {TabelY()}
+          </div>
+          <div className="grid grid-cols-1 gap-1">
+            <div className="flex w-full justify-center">
+              <div>
+                X<sup>2</sup>
+              </div>
+            </div>
             {TabelX2()}
           </div>
-          <div className="grid grid-cols-1 gap-2">
-            Y2
+          <div className="grid grid-cols-1 gap-1">
+            <div className="flex w-full justify-center">
+              <div>
+                Y<sup>2</sup>
+              </div>
+            </div>
             {TabelY2()}
           </div>
-          <div className="grid grid-cols-1 gap-2">
-            XY
+          <div className="grid grid-cols-1 gap-1">
+            <div className="flex w-full justify-center">XY</div>
             {TabelXY()}
           </div>
         </div>
-        <button onClick={ResetButton}>Reset</button>
-        <button onClick={DoubleCalculation}>Calculate</button>
+        <div className="flex flex-row-reverse justify-between">
+          <div>
+            {render ? (
+              <button
+                className="btn btn-xs my-2 btn-primary"
+                onClick={DoubleCalculation}
+              >
+                Calculate
+              </button>
+            ) : (
+              <button
+                className="btn btn-xs my-2 btn-neutral"
+                onClick={ResetButton}
+              >
+                Reset
+              </button>
+            )}
+          </div>
+          <div className="flex gap-2 flex-row-reverse">
+            <button
+              className="btn btn-xs my-2 btn-ghost"
+              onClick={() => {
+                if (jumlahTabel < 3) {
+                  alert("Minimal 2")
+                } else {
+                  setJumlahTabel(jumlahTabel - 1)
+                  ResetButton()
+                  setRender(true)
+                }
+              }}
+              id="minusTabel"
+              type="submit"
+            >
+              Remove Table
+            </button>
+            <button
+              className="btn btn-xs my-2 btn-outline btn-neutral"
+              onClick={() => {
+                setJumlahTabel(jumlahTabel + 1)
+                ResetButton()
+                setRender(true)
+              }}
+              id="plusTabel"
+              type="submit"
+            >
+              Add Table
+            </button>
+          </div>
+        </div>
       </div>
       <div>{render ? "Loading..." : <Equation />}</div>
     </>
