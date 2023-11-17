@@ -7,7 +7,8 @@ const EqPTK = () => {
   return (
     <>
       <BlockMath>{String.raw`Pelaporan \ (b \pm \Delta b) = {\text{${Store.state.b}}} \pm {\text{${Store.state.deltaB}}}`}</BlockMath>
-      <BlockMath>{String.raw`TK = {1 - { \Delta b \over b } \times 100 \%} = {1 - {{\text{${Store.state.deltaB}}} \over {\text{${Store.state.b}}}}} \times 100 \% = {{\text{${Store.state.tingkatKetelitian}}} \%}`}</BlockMath>
+      <BlockMath>{String.raw`TK = {1 - { \Delta b \over b } \times 100 \%}`}</BlockMath>
+      <BlockMath>{String.raw` TK = {\text{${Store.state.tingkatKetelitian}}} \%`}</BlockMath>
     </>
   )
 }

@@ -153,7 +153,6 @@ const Store = {
 			}
 
 			Store.state.clicked = true
-			console.log(state)
 		},
         getters: {
             totalRow: (state) => {

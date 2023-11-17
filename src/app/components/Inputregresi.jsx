@@ -2,6 +2,7 @@
 import { useState } from "react"
 import Store from "../regresilinear/store"
 import Equation from "./equation"
+import Credits from "./credits"
 import "katex/dist/katex.min.css"
 import { InlineMath, BlockMath } from "react-katex"
 
@@ -176,7 +177,10 @@ const Inputregresi = () => {
         Store.state.belakangDesimal
       )
     } else {
-      return x
+      return (
+        Math.round(x * Store.state.belakangDesimal) /
+        Store.state.belakangDesimal
+      )
     }
   }
 
@@ -186,6 +190,13 @@ const Inputregresi = () => {
     Store.action.calculationHandler()
   }
   function CalculationButton() {
+    let jumlahPembulatan = document.getElementById("jumlahPembulatan").value
+    if (jumlahPembulatan < 10) {
+      Store.state.pembulatan = false
+    } else {
+      Store.state.pembulatan = true
+      Store.state.belakangDesimal = jumlahPembulatan
+    }
     setRender(false)
     Store.state.totalRow = jumlahTabel
     Store.state.cX = []
@@ -242,7 +253,7 @@ const Inputregresi = () => {
   return (
     <>
       <div className="flex justify-center">
-        <h1 className="font-bold mb-4">Regresi Linear Calculation</h1>
+        <h1 className="font-bold mb-4">Linear Regression Calculator</h1>
       </div>
       <div>
         <div className="flex gap-1 justify-between items-center">
@@ -276,29 +287,48 @@ const Inputregresi = () => {
           </div>
         </div>
         <div className="flex flex-row-reverse justify-between">
-          <div>
-            {render ? (
-              <button
-                className="btn btn-xs my-2 btn-primary"
-                onClick={DoubleCalculation}
+          <div className="flex flex-col sm:flex-row items-end gap-2">
+            <div>
+              <select
+                name="jumlahPembulatan"
+                id="jumlahPembulatan"
+                className="btn btn-xs my-2 btn-ghost"
               >
-                Calculate
-              </button>
-            ) : (
-              <button
-                className="btn btn-xs my-2 btn-neutral"
-                onClick={ResetButton}
-              >
-                Reset
-              </button>
-            )}
+                <option disabled selected value={1000}>
+                  Math Rounding
+                </option>
+                <option value={1}>Off</option>
+                <option value={10}>0,0</option>
+                <option value={100}>0,00</option>
+                <option value={1000}>0,000</option>
+                <option value={10000}>0,0000</option>
+                <option value={100000}>0,00000</option>
+              </select>
+            </div>
+            <div>
+              {render ? (
+                <button
+                  className="btn btn-xs my-2 btn-primary"
+                  onClick={DoubleCalculation}
+                >
+                  Calculate
+                </button>
+              ) : (
+                <button
+                  className="btn btn-xs my-2 btn-neutral"
+                  onClick={ResetButton}
+                >
+                  Reset
+                </button>
+              )}
+            </div>
           </div>
           <div className="flex gap-2 flex-row-reverse">
             <button
               className="btn btn-xs my-2 btn-ghost"
               onClick={() => {
-                if (jumlahTabel < 3) {
-                  alert("Minimal 2")
+                if (jumlahTabel < 4) {
+                  document.getElementById("my_modal_2").showModal()
                 } else {
                   setJumlahTabel(jumlahTabel - 1)
                   ResetButton()
@@ -325,7 +355,23 @@ const Inputregresi = () => {
           </div>
         </div>
       </div>
-      <div>{render ? "Loading..." : <Equation />}</div>
+      <div>{render ? <Credits /> : <Equation />}</div>
+      <dialog id="my_modal_2" className="modal">
+        <div className="modal-box">
+          <form method="dialog">
+            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+              ✕
+            </button>
+          </form>
+          <h3 className="font-bold text-medium">I'm Sorry</h3>
+          <p className="py-4 text-sm">
+            You must have at least 3 tables to perform a calculation
+          </p>
+        </div>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
     </>
   )
 }
