@@ -17,6 +17,7 @@ const Inputregresi = () => {
   let listItemsXY = []
 
   function ResetButton() {
+    Store.action.resetHandler
     setRender(true)
     for (let i = 0; i < jumlahTabel; i++) {
       document.getElementById("SumX").value = 0
@@ -25,6 +26,12 @@ const Inputregresi = () => {
       document.getElementById("SumY2").value = 0
       document.getElementById("SumXY").value = 0
     }
+    Store.state.sumX = 0
+    Store.state.sumY = 0
+    Store.state.sumX2 = 0
+    Store.state.sumY2 = 0
+    Store.state.sumXY = 0
+    Store.state.belakangDesimal = 10000000
   }
 
   const TabelX = () => {
@@ -171,13 +178,10 @@ const Inputregresi = () => {
   }
 
   function Pembulatan(x) {
-    if (Store.state.pembulatan) {
-      return (
-        Math.round(x * Store.state.belakangDesimal) /
-        Store.state.belakangDesimal
-      )
+    if (Store.state.pembulatan < 5) {
+      return Math.round(x * 10000000) / 10000000
     } else {
-      return x
+      return Math.round(x * Store.state.pembulatan) / Store.state.pembulatan
     }
   }
 
