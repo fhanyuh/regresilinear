@@ -177,10 +177,7 @@ const Inputregresi = () => {
         Store.state.belakangDesimal
       )
     } else {
-      return (
-        Math.round(x * Store.state.belakangDesimal) /
-        Store.state.belakangDesimal
-      )
+      return x
     }
   }
 
