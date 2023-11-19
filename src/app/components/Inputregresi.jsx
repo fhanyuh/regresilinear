@@ -252,8 +252,13 @@ const Inputregresi = () => {
 
   return (
     <>
-      <div className="flex justify-center">
-        <h1 className="font-bold mb-4">Linear Regression Calculator</h1>
+      <div className="flex justify-between items-center flex-col gap-2 mb-4">
+        <h1 className="font-bold">Linear Regression Calculator</h1>
+        <p className="text-red-500 text-xs sm:w-1/2 w-full text-center">
+          Calculation sometimes does not work smoothly for numbers that have
+          many zeros after the decimal point. It is recommended to disable the
+          rounding feature.
+        </p>
       </div>
       <div>
         <div className="flex gap-1 justify-between items-center">
@@ -294,7 +299,7 @@ const Inputregresi = () => {
                 id="jumlahPembulatan"
                 className="btn btn-xs my-2 btn-ghost"
               >
-                <option disabled selected value={1000}>
+                <option disabled selected value={1}>
                   Math Rounding
                 </option>
                 <option value={1}>Off</option>
