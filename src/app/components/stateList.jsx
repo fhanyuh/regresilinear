@@ -19,7 +19,10 @@ const StateList = async () => {
   return (
     <>
       {state.map((i) => (
-        <div key={i} className="flex flex-col bg-amber-500 px-4 py-2 w-full">
+        <div
+          key={i._id}
+          className="flex flex-col bg-amber-500 px-4 py-2 w-full"
+        >
           <div className="flex justify-between">
             <p>{i.jenisFitur ? i.jenisFitur : "jenisFitur"}</p>
             <p>{i.state ? i.state : "state"}</p>

@@ -1,3 +1,4 @@
+"use client"
 import StateList from "../components/stateList"
 import AddStatePage from "./addState/page"
 
