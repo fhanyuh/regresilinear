@@ -38,7 +38,9 @@ export const EditState = ({
         throw new Error("Failed to update state")
       }
       router.push("/injection")
-    } catch (error) {}
+    } catch (error) {
+      console.log(error)
+    }
   }
   return (
     <form onSubmit={handleSubmit}>

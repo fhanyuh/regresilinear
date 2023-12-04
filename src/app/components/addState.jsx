@@ -67,7 +67,7 @@ const AddState = () => {
       />
       <input
         onChange={(e) => setState(e.target.value)}
-        value={setState}
+        value={state}
         type="text"
         placeholder="State"
       />
