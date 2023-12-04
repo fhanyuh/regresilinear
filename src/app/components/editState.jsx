@@ -3,14 +3,7 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 
-export const EditState = ({
-  id,
-  jenisFitur,
-  lastAction,
-  from,
-  until,
-  state,
-}) => {
+const EditState = ({ id, jenisFitur, lastAction, from, until, state }) => {
   const router = useRouter()
   const [newJenisFitur, setJenisFitur] = useState(jenisFitur)
   const [newLastAction, setLastAction] = useState(lastAction)
@@ -21,19 +14,22 @@ export const EditState = ({
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const res = await fetch(`http://localhost:3000/api/injection/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-type": "application/json",
+      const res = await fetch(
+        `https://fhan-regresilinear.vercel.app/api/injection/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            newJenisFitur,
+            newLastAction,
+            newFrom,
+            newUntil,
+            newState,
+          }),
         },
-        body: JSON.stringify({
-          newJenisFitur,
-          newLastAction,
-          newFrom,
-          newUntil,
-          newState,
-        }),
-      })
+      )
       if (!res.ok) {
         throw new Error("Failed to update state")
       }

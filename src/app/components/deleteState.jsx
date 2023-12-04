@@ -5,9 +5,12 @@ const DeleteState = ({ id }) => {
   const deleteState = async () => {
     const confirmed = confirm("Are you sure?")
     if (confirmed) {
-      const res = await fetch(`http://localhost:3000/api/injection?id=${id}`, {
-        method: "DELETE",
-      })
+      const res = await fetch(
+        `https://fhan-regresilinear.vercel.app/api/injection?id=${id}`,
+        {
+          method: "DELETE",
+        },
+      )
       if (res.ok) {
         router.refresh()
       }

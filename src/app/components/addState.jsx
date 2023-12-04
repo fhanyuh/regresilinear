@@ -18,19 +18,22 @@ const AddState = () => {
       return
     }
     try {
-      const res = await fetch(`http://localhost:3000/api/injection`, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
+      const res = await fetch(
+        `https://fhan-regresilinear.vercel.app/api/injection`,
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            jenisFitur,
+            lastAction,
+            from,
+            until,
+            state,
+          }),
         },
-        body: JSON.stringify({
-          jenisFitur,
-          lastAction,
-          from,
-          until,
-          state,
-        }),
-      })
+      )
       if (!res.ok) {
         throw new Error("Failed to update state")
       }

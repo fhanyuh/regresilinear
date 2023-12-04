@@ -1,10 +1,14 @@
-import { cache } from "react"
+import { useEffect, useState } from "react"
 import DeleteState from "../components/deleteState"
+
 const getState = async () => {
   try {
-    const res = await fetch("http://localhost:3000/api/injection", {
-      cache: "no-store",
-    })
+    const res = await fetch(
+      "https://fhan-regresilinear.vercel.app/api/injection",
+      {
+        cache: "no-store",
+      },
+    )
     if (!res.ok) {
       throw new Error("Failed to fetch state")
     }
@@ -15,7 +19,15 @@ const getState = async () => {
 }
 
 const StateList = async () => {
-  const { state } = await getState()
+  const [state, setState] = useState([])
+  useEffect(() => {
+    async function fetchState() {
+      let stateList = await getState()
+      if (stateList) {
+        setState(stateList)
+      }
+    }
+  })
   return (
     <>
       {state.map((i) => (
