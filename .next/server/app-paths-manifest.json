@@ -1,4 +1,5 @@
 {
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/regresilinear/page": "app/regresilinear/page.js"
+  "/injection/page": "app/injection/page.js",
+  "/injection/editState/[id]/page": "app/injection/editState/[id]/page.js",
+  "/api/injection/route": "app/api/injection/route.js"
 }
