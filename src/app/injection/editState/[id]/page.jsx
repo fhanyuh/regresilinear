@@ -2,9 +2,12 @@ import EditState from "../../../components/editState"
 
 const getStateById = async (id) => {
   try {
-    const res = await fetch(`http:localhost:3000/api/injection/${id}`, {
-      cache: "no-store",
-    })
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/injection/${id}`,
+      {
+        cache: "no-store",
+      },
+    )
     if (!res.ok) {
       throw new Error("Failed to fetch state")
     }
