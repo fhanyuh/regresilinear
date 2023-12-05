@@ -19,7 +19,7 @@ const AddState = () => {
     }
     try {
       const res = await fetch(
-        `https://fhan-regresilinear.vercel.app/api/injection`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/injection`,
         {
           method: "POST",
           headers: {

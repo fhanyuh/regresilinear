@@ -15,7 +15,7 @@ const EditState = ({ id, jenisFitur, lastAction, from, until, state }) => {
     e.preventDefault()
     try {
       const res = await fetch(
-        `https://fhan-regresilinear.vercel.app/api/injection/${id}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/injection/${id}`,
         {
           method: "PUT",
           headers: {

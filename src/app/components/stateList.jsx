@@ -1,7 +1,12 @@
 import DeleteState from "../components/deleteState"
 
 async function StateList() {
-  const res = await fetch("http://fhan-regresilinear.vercel.app/api/injection")
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/injection`,
+    {
+      cache: "no-store",
+    },
+  )
   const response = await res.json()
   const state = response.state
   return (
