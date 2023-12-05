@@ -1,4 +1,5 @@
 {
+  "/not-found": "app/not-found.js",
   "/injection/page": "app/injection/page.js",
-  "/injection/editState/[id]/page": "app/injection/editState/[id]/page.js"
+  "/favicon.ico/route": "app/favicon.ico/route.js"
 }

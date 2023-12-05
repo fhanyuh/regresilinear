@@ -6,7 +6,7 @@ const DeleteState = ({ id }) => {
     const confirmed = confirm("Are you sure?")
     if (confirmed) {
       const res = await fetch(
-        `https://fhan-regresilinear.vercel.app/api/injection?id=${id}`,
+        `http://fhan-regresilinear.vercel.app/api/injection?id=${id}`,
         {
           method: "DELETE",
         },

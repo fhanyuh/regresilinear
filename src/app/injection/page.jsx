@@ -1,8 +1,7 @@
-"use client"
 import StateList from "../components/stateList"
 import AddStatePage from "./addState/page"
 
-const Injection = () => {
+const Injection = async () => {
   return (
     <div>
       <h1>Injection</h1>

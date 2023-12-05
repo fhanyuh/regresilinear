@@ -1,33 +1,9 @@
-import { useEffect, useState } from "react"
 import DeleteState from "../components/deleteState"
 
-const getState = async () => {
-  try {
-    const res = await fetch(
-      "https://fhan-regresilinear.vercel.app/api/injection",
-      {
-        cache: "no-store",
-      },
-    )
-    if (!res.ok) {
-      throw new Error("Failed to fetch state")
-    }
-    return res.json()
-  } catch (error) {
-    console.log("Error loading state : ", error)
-  }
-}
-
-const StateList = async () => {
-  const [state, setState] = useState([])
-  useEffect(() => {
-    async function fetchState() {
-      let stateList = await getState()
-      if (stateList) {
-        setState(stateList)
-      }
-    }
-  })
+async function StateList() {
+  const res = await fetch("http://fhan-regresilinear.vercel.app/api/injection")
+  const response = await res.json()
+  const state = response.state
   return (
     <>
       {state.map((i) => (

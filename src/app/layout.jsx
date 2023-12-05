@@ -18,10 +18,6 @@ export default function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap"
           rel="stylesheet"
         />
-        <link
-          href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css"
-          rel="stylesheet"
-        />
       </head>
       <body className={`${inter.className}`}>
         <div className="flex justify-between items-center shadow-lg px-4 py-2 ">
